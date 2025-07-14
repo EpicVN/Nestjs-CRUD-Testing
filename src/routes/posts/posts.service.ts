@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable } from '@nestjs/common'
-import envConfig from 'src/shared/config';
 import { PrismaService } from 'src/shared/services/prisma.service'
 
 @Injectable()
@@ -14,7 +11,7 @@ export class PostsService {
   }
 
   createPost(body: any) {
-    const userId = 1;
+    const userId = 19
 
     return this.PrismaService.post.create({
       data: {
