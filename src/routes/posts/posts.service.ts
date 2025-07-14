@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable } from '@nestjs/common'
-import envConfig from 'src/shared/services/config';
+import envConfig from 'src/shared/config';
 import { PrismaService } from 'src/shared/services/prisma.service'
 
 @Injectable()

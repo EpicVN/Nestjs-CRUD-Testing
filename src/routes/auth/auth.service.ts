@@ -3,6 +3,7 @@ import { HashingService } from 'src/shared/services/hashing.service'
 import { PrismaService } from 'src/shared/services/prisma.service'
 import { LoginBodyDTO, RegisterBodyDto } from './auth.dto'
 import { TokenService } from 'src/shared/services/token.service'
+import { isNotFoundPrismaError, isUniqueConstraintPrismaError } from 'src/shared/helpers'
 
 @Injectable()
 export class AuthService {
@@ -26,8 +27,7 @@ export class AuthService {
 
       return user
     } catch (error) {
-      console.error(error.meta)
-      if (error.code === 'P2002') {
+      if (isUniqueConstraintPrismaError(error)) {
         throw new ConflictException('Email đã tồn tại')
       }
 
@@ -62,11 +62,7 @@ export class AuthService {
 
       return tokens
     } catch (error) {
-      console.error(error.meta)
-      if (error.code === 'P2002') {
-        throw new ConflictException('Email đã tồn tại')
-      }
-
+      console.log(error)
       throw error
     }
   }
@@ -114,7 +110,7 @@ export class AuthService {
     } catch (error) {
       // Trường hợp đã refresh token rồi, hãy thông báo cho user biết
       // refresh token của họ đã bị đánh cắp
-      if (error.code === 'P2025') {
+      if (isNotFoundPrismaError(error)) {
         throw new UnauthorizedException('Refresh token has been revoked')
       }
 
