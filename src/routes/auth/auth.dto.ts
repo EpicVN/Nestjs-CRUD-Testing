@@ -8,7 +8,7 @@ export class LoginBodyDTO {
   email: string
 
   @IsString()
-  @Length(6, 20, {message: 'Mật khẩu phải từ 6 đến 20 kí tự'})
+  @Length(6, 20, { message: 'Mật khẩu phải từ 6 đến 20 kí tự' })
   password: string
 }
 
@@ -56,3 +56,13 @@ export class RefreshTokenBodyDTO {
 }
 
 export class RefreshTokenResDTO extends LoginResDTO {}
+
+export class LogoutBodyDTO extends RefreshTokenBodyDTO {}
+
+export class LogoutResDTO {
+  message: string
+
+  constructor(partial: Partial<LogoutResDTO>) {
+    Object.assign(this, partial)
+  }
+}
